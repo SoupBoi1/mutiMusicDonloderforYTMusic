@@ -1,0 +1,27 @@
+{
+    "name": "YTmusic to mp3",
+    "description": "mp3 download",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+      "default_popup": "hello.html",
+      "default_icon": "icon.png"
+    },
+    "permissions": ["activeTab","scripting","nativeMessaging"],
+    
+    "commands": {
+        "_execute_action": {
+            "suggested_key": {
+                "default": "Ctrl+B",
+                "mac": "Command+B"
+            }
+        }
+    },
+    "content_scripts": [
+    {
+      "matches": ["https://music.youtube.com/*","<all_urls>"],
+      "js": ["content.js"]
+    }
+    ]
+
+  }
