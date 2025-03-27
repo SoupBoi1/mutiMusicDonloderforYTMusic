@@ -22,7 +22,20 @@ function donloadplaylist(){
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, { action: 'getplaylist'}, (response) => {
-          const songsInfo = response;
+          //const songsInfo = response;
+          console.log("playerlist")
+          console.log(response.songs)
+          //dowloadMP3();
+        });
+    });
+}
+
+function dowloadMP3(){
+  let url = "https://ogmp3.cc/2/"; // Change to your desired URL
+    chrome.tabs.create({ url: url }, (tab) => {
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            files: ["content.js"]
         });
     });
 }
@@ -32,6 +45,7 @@ function donloadvideo(){
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, { action: 'getplaylist'}, (response) => {
             const songsInfo = response;
+            //dowloadMP3();
         });
     });
 }
@@ -40,3 +54,4 @@ const button = document.getElementById("myButton");
 
 
 button.addEventListener("click",donloadplaylist() );
+

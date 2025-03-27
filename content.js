@@ -19,7 +19,7 @@ function getplaylist(){
   const letters = new Set();
 
   for(var ele of list){
-    console.log(ele.querySelector("a").href);
+    //console.log(ele.querySelector("a").href);
     letters.add(ele.querySelector("a").href);
   }
   return letters;
@@ -28,13 +28,24 @@ function getplaylist(){
 
 }
 
+function downloadVid(){
+  const list = document.querySelectorAll('ytmusic-responsive-list-item-renderer');
+  const letters = new Set();
+
+  for(var ele of list){
+    console.log(ele.querySelector("a").href);
+    letters.add(ele.querySelector("a").href);
+  }
+  return letters;
+}
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log("sddsbghjehjrhjghehjthbkegt")
 
   if (request.action === 'getplaylist'){
-
-    
-    sendResponse(getplaylist());
+    const songsSET = getplaylist();
+    console.log(songsSET);
+    sendResponse({songs: Array.from(songsSET)});
   }
   if (request.action === 'getCurrentSong') {
     const songInfo = getCurrentSong();
