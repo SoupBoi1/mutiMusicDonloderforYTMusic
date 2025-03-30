@@ -23,21 +23,15 @@ function donloadplaylist(){
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, { action: 'getplaylist'}, (response) => {
           //const songsInfo = response;
-          console.log("playerlist")
-          console.log(response.songs)
-          //dowloadMP3();
+          //console.log("playerlist")
+          //console.log(response.songs)
         });
     });
 }
 
-function dowloadMP3(){
-  let url = "https://ogmp3.cc/2/"; // Change to your desired URL
-    chrome.tabs.create({ url: url }, (tab) => {
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            files: ["content.js"]
-        });
-    });
+function dowloadMP3(link){
+  //localStorage.setItem('video', link);
+
 }
 
 function donloadvideo(){
@@ -50,8 +44,7 @@ function donloadvideo(){
     });
 }
 
-const button = document.getElementById("myButton");
+const button = document.getElementById("NEWID");
 
-
-button.addEventListener("click",donloadplaylist() );
+document.getElementById("NEWID").addEventListener("click",donloadplaylist);
 

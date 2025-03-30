@@ -40,15 +40,27 @@ function downloadVid(){
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log("sddsbghjehjrhjghehjthbkegt")
 
   if (request.action === 'getplaylist'){
     const songsSET = getplaylist();
+    chrome.runtime.sendMessage({
+      action: "downloadVideo",
+      url: Array.from(songsSET)[0]
+    });
     console.log(songsSET);
     sendResponse({songs: Array.from(songsSET)});
   }
   if (request.action === 'getCurrentSong') {
     const songInfo = getCurrentSong();
+    chrome.runtime.sendMessage({
+      action: "downloadVideo",
+      url: songInfo
+    });
+    sendResponse(songInfo);
+  }
+  if (request.action === 'download') {
+    const songInfo = fillInVid(request.link);
+    console.log(request.link);
     sendResponse(songInfo);
   }
 });
